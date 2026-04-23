@@ -1,1 +1,62 @@
+Pruebas de Humo:
+Caso Ping:
+
+pm.test("Status 201", () => { 
+    pm.response.to.have.status(201); 
+}); 
+pm.test("Tiempo menor a 1000ms", () => { pm.expect(pm.response.responseTime).to.be.below(1000);
+});
+
+Caso Obtener Booking:
+
+pm.test("Status 200", () => { 
+    pm.response.to.have.status(200);
+});
+pm.test("Retorna arreglo", () => {
+    pm.expect(pm.response.json()).to.be.an("array"); 
+});
+
+Caso  Obterner Booking ID:
+
+pm.test("Status 200", function () {
+    pm.response.to.have.status(200);
+});
+
+var json = pm.response.json();
+
+pm.test("Respuesta es objeto JSON", function () {
+    pm.expect(json).to.be.an("object");
+});
+
+pm.test("Tiene firstname", function () {
+    pm.expect(json.firstname).to.exist;
+});
+
+pm.test("Tiene lastname", function () {
+    pm.expect(json.lastname).to.exist;
+});
+
+pm.test("Tiene totalprice", function () {
+    pm.expect(json.totalprice).to.exist;
+});
+
+pm.test("Tiempo menor a 1000 ms", function () {
+    pm.expect(pm.response.responseTime).to.be.below(1000);
+});
+
+Caso Generar Token:
+
+{ 
+    "username": "admin", 
+    "password": "password123" 
+}
+
+pm.test("Status 200", () => { 
+    pm.response.to.have.status(200); 
+}); 
+let json = pm.response.json(); 
+pm.environment.set("token", json.token); 
+pm.test("Token creado", () => { 
+    pm.expect(json.token).to.exist; 
+});
 
